@@ -3,7 +3,7 @@
 # Examples:
 #  - Will set the servo on Pin 17 to a angle of 45: servo.py 17 45
 #  - Will set the servo on Pin 17 to a angle of 55 if it was 45 before: servo.py 17 +10
-#  - Will set the servo on Pin 17 to a angle of 55 if it was 45 before: servo.py 17 -10
+#  - Will set the servo on Pin 17 to a angle of 35 if it was 45 before: servo.py 17 -10
 # (c) GPL https://github.com/SebiPanther/servo
 
 import RPi.GPIO as GPIO, time, sys, getopt, os
@@ -52,14 +52,14 @@ newValue = minValue + (oneAngleValue * angle)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pin, GPIO.OUT)
 p = GPIO.PWM(pin, pwmInterval)
+
+if not os.path.exists(path):
+    os.makedirs(path)
 file = open(pathpin, "w")
 
 try:
     p.start(newValue)
     time.sleep(0.5)
-
-    if not os.path.exists(path):
-        os.makedirs(path)
 
     file.write(str(angle))
 
